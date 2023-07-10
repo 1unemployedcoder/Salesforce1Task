@@ -1,0 +1,9 @@
+<template>
+    <select onchange={handleAccountSelection}>
+        <template for:each={accounts} for:item="account">
+            <option key={account.Id} value={account.Id}>
+                {account.Name} - {account.AccountID__c}
+            </option>
+        </template>
+    </select>
+</template>

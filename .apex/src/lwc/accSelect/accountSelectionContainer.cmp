@@ -1,0 +1,3 @@
+<aura:component>
+    <c:accountSelection selectedAccountId="{!v.selectedAccountId}" />
+</aura:component>

@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Product Search">
+        <div class="slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-3">
+                <lightning-input type="text" label="Search" value={searchTerm} onchange={handleSearchTermChange}></lightning-input>
+            </div>
+            <div class="slds-col slds-size_1-of-3">
+                <lightning-button label="Search" onclick={handleSearch}></lightning-button>
+            </div>
+        </div>
+        <template if:true={isSearchResultsEmpty}>
+            <p>No results found.</p>
+        </template>
+        <template if:true={searchResults}>
+            <ul>
+                <template for:each={searchResults} for:item="product">
+                    <li key={product.Id}>{product.Name}</li>
+                </template>
+            </ul>
+        </template>
+    </lightning-card>
+</template>

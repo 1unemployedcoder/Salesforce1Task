@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Filter">
+        <div class="slds-m-around_medium">
+            <lightning-layout>
+                <lightning-layout-item size="6" padding="around-small">
+                    <lightning-combobox label="Type" options={typeOptions} onchange={handleTypeChange} value={selectedType}></lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="around-small">
+                    <lightning-combobox label="Family" options={familyOptions} onchange={handleFamilyChange} value={selectedFamily}></lightning-combobox>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+
+        <!-- Rest of the Order Management page -->
+    </lightning-card>
+</template>
