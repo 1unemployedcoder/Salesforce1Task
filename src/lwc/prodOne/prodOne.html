@@ -1,8 +1,20 @@
 <template>
-    <lightning-card title="Product Search and List">
-        <div class="slds-grid slds-gutters">
+    <lightning-card title="Filter">
+        <div class="slds-m-around_medium">
+            <lightning-layout>
+                <lightning-layout-item size="6" padding="around-small">
+                    <lightning-combobox label="Type" options={typeOptions} onchange={handleTypeChange} value={selectedType}></lightning-combobox>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="around-small">
+                    <lightning-combobox label="Family" options={familyOptions} onchange={handleFamilyChange} value={selectedFamily}></lightning-combobox>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-card>
+    <lightning-card title="Searsh">
+        <div class="slds-grid slds-grid_vertical-align-center slds-gutters">
             <div class="slds-col slds-size_1-of-3">
-                <lightning-input type="text" label="Search" value={searchTerm} onchange={handleSearchTermChange}></lightning-input>
+                <lightning-input type="text" value={searchTerm} onchange={handleSearchTermChange}></lightning-input>
             </div>
             <div class="slds-col slds-size_1-of-3">
                 <lightning-button label="Search" onclick={handleSearch}></lightning-button>

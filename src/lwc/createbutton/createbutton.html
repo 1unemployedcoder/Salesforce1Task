@@ -1,5 +1,27 @@
 <template>
     <template if:true={isManager}>
-        <lightning-button label="Create Product" onclick={createProduct}></lightning-button>
+        <lightning-button label="Create Product" onclick={openModal}></lightning-button>
+    </template>
+
+    <template if:true={showModal}>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                 aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <h2 id="modal-heading-01" class="slds-modal__title">Create Product</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <!-- Форма для создания продукта -->
+                    <lightning-input label="Product Name" value={productName} onchange={handleNameChange}></lightning-input>
+                    <lightning-input label="Product Description" value={productDescription} onchange={handleProductDescription}></lightning-input>
+                    <!-- Другие поля для создания продукта -->
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Cancel" onclick={closeModal}></lightning-button>
+                    <lightning-button label="Create" variant="brand" onclick={createProduct}></lightning-button>
+                </footer>
+            </div>
+        </section>
     </template>
 </template>

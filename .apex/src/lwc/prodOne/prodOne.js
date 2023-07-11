@@ -1,6 +1,8 @@
 import { LightningElement, track, wire } from 'lwc';
 import searchProducts from '@salesforce/apex/productSearchController.searchProducts';
 import getProducts from '@salesforce/apex/products.getProducts';
+import getProductTypes from '@salesforce/apex/orderFilter.getProductTypes';
+import getProductFamilies from '@salesforce/apex/orderFilter.getProductFamilies';
 
 export default class ProductSearchAndList extends LightningElement {
     @track searchTerm;
@@ -10,6 +12,10 @@ export default class ProductSearchAndList extends LightningElement {
     @track isModalOpen2 = false;
     @track products;
     selectedProduct;
+    selectedType = '';
+    selectedFamily = '';
+    typeOptions = [];
+    familyOptions = [];
 
     handleSearchTermChange(event) {
         this.searchTerm = event.target.value;
@@ -26,12 +32,14 @@ export default class ProductSearchAndList extends LightningElement {
             });
     }
 
-    filterProducts() {
-        this.displayProducts = this.products.filter(product =>
-            product.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-            (product.Description__c && product.Description__c.toLowerCase().includes(this.searchTerm.toLowerCase()))
-        );
-    }
+filterProducts() {
+    this.displayProducts = this.products.filter(product =>
+        (product.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+        (product.Description__c && product.Description__c.toLowerCase().includes(this.searchTerm.toLowerCase())))
+        && (this.selectedType === '' || product.Type__c === this.selectedType)
+        && (this.selectedFamily === '' || product.Family__c === this.selectedFamily)
+    );
+}
 
     get isSearchResultsEmpty() {
         return this.searchResults && this.searchResults.length === 0;
@@ -76,4 +84,31 @@ export default class ProductSearchAndList extends LightningElement {
         this.isModalOpen2 = false;
         // Add your code to call Apex method or perform some processing for modal 2
     }
+@wire(getProductTypes)
+wiredProductTypes({ error, data }) {
+    if (data) {
+        this.typeOptions = [{ label: 'None', value: '' }, ...data.map((type) => ({ label: type, value: type }))];
+    } else if (error) {
+        console.error(error);
+    }
+}
+
+@wire(getProductFamilies)
+wiredProductFamilies({ error, data }) {
+    if (data) {
+        this.familyOptions = [{ label: 'None', value: '' }, ...data.map((family) => ({ label: family, value: family }))];
+    } else if (error) {
+        console.error(error);
+    }
+}
+
+handleTypeChange(event) {
+    this.selectedType = event.target.value;
+    this.filterProducts();
+}
+
+handleFamilyChange(event) {
+    this.selectedFamily = event.target.value;
+    this.filterProducts();
+}
 }
