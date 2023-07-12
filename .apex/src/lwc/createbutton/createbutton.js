@@ -7,6 +7,10 @@ export default class CreateProductModal extends LightningElement {
     showModal = false;
     productName = '';
     productDescription = '';
+    productType = '';
+    productFamily = '';
+    productImage = '';
+    productPrice = '';
 
     @wire(isCurrentUserManager)
     wiredIsManager({ error, data }) {
@@ -33,12 +37,32 @@ export default class CreateProductModal extends LightningElement {
         this.productDescription = event.target.value;
     }
 
+    handleProductType(event) {
+        this.productType = event.target.value;
+    }
+
+    handleProductFamily(event) {
+        this.productFamily = event.target.value;
+    }
+
+    handleProductImage(event) {
+        this.productImage = event.target.value;
+    }
+
+    handleProductPrice(event) {
+        this.productPrice = event.target.value;
+    }
+
     createProduct() {
         // Логика создания нового продукта
         // Используйте createRecord для создания записи продукта
         const fields = {
             Name: this.productName,
             Description__c: this.productDescription,
+            Type__c: this.productType,
+            Family__c: this.productFamily,
+            Image__c: this.productImage,
+            Price__c: this.productPrice,
             // Другие поля продукта
         };
 

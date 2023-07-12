@@ -13,8 +13,12 @@
                 </header>
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
                     <!-- Форма для создания продукта -->
-                    <lightning-input label="Product Name" value={productName} onchange={handleNameChange}></lightning-input>
-                    <lightning-input label="Product Description" value={productDescription} onchange={handleProductDescription}></lightning-input>
+                    <lightning-input label="Name" value={productName} onchange={handleNameChange} required></lightning-input>
+                    <lightning-input label="Description" value={productDescription} onchange={handleProductDescription} required></lightning-input>
+                    <lightning-input label="Type" value={productType} onchange={handleProductType} required></lightning-input>
+                    <lightning-input label="Family" value={productFamily} onchange={handleProductFamily} required></lightning-input>
+                    <lightning-input label="Image URL" value={productImage} onchange={handleProductImage} required></lightning-input>
+                    <lightning-input label="Price" value={productPrice} onchange={handleProductPrice} required></lightning-input>
                     <!-- Другие поля для создания продукта -->
                 </div>
                 <footer class="slds-modal__footer">

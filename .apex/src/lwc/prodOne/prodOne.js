@@ -3,6 +3,8 @@ import searchProducts from '@salesforce/apex/productSearchController.searchProdu
 import getProducts from '@salesforce/apex/products.getProducts';
 import getProductTypes from '@salesforce/apex/orderFilter.getProductTypes';
 import getProductFamilies from '@salesforce/apex/orderFilter.getProductFamilies';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
 
 export default class ProductSearchAndList extends LightningElement {
     @track searchTerm;
@@ -111,4 +113,15 @@ handleFamilyChange(event) {
     this.selectedFamily = event.target.value;
     this.filterProducts();
 }
+handleAddToCart(event) {
+        // Ваша логика добавления продукта в корзину
+
+        // Показать сообщение Toast
+        const toastEvent = new ShowToastEvent({
+            title: 'Success',
+            message: 'Product added to cart',
+            variant: 'success'
+        });
+        this.dispatchEvent(toastEvent);
+    }
 }
