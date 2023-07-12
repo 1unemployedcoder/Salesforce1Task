@@ -149,17 +149,29 @@ handleFamilyChange(event) {
         const productId = event.target.dataset.id;
         const product = this.products.find(product => product.Name === productId);
 
+        const quantity = 1; // Здесь вы можете использовать свою логику для получения количества
+        const price = product.Price__c; // Здесь вы можете использовать свою логику для получения цены
+
         const existingProduct = this.selectedProducts.find(item => item.Name === product.Name);
         if (existingProduct) {
-            existingProduct.quantity++;
+            existingProduct.quantity += quantity;
             existingProduct.subtotal = existingProduct.Price__c * existingProduct.quantity;
         } else {
-            const newProduct = { ...product, quantity: 1, subtotal: product.Price__c };
+            const newProduct = { ...product, quantity: quantity, subtotal: price };
             this.selectedProducts.push(newProduct);
         }
 
         // Вычислить общую сумму продуктов
         this.totalPrice = this.selectedProducts.reduce((total, product) => total + product.subtotal, 0);
+
+        // Вызвать Apex-метод updateOrder для обновления заказа с учетом продуктов и цен
+        updateOrder({ orderId: this.orderId, totalPrice: this.totalPrice, products: this.selectedProducts.map(product => new ProductData(product.Id, product.quantity, product.Price__c)) })
+            .then(() => {
+                // Обработка успешного обновления заказа
+            })
+            .catch(error => {
+                // Обработка ошибки при обновлении заказа
+            });
 
         // Показать Toast сообщение
         const toastEvent = new ShowToastEvent({
@@ -182,5 +194,11 @@ get quantity() {
 getProductSubtotal(product) {
     return product.Price__c * this.quantity(product);
 }
-
+  }
+class ProductData {
+  constructor(productId, quantity, price) {
+    this.productId = productId;
+    this.quantity = quantity;
+    this.price = price;
+  }
 }

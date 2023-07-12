@@ -1,9 +1,11 @@
 public class orderController {
 	@AuraEnabled
 	public static Id createOrder(Id accountId, List<Id> productIds) {
+		Account account = [SELECT AccountID__c FROM Account LIMIT 1];
+
 		Order__c order = new Order__c(
 				Name = 'New Order',
-				AccountID__c = accountId
+				AccountID__c = account.Id
 		);
 		insert order;
 
@@ -12,8 +14,8 @@ public class orderController {
 			OrderItem__c orderItem = new OrderItem__c(
 					OrderId__c = order.Id,
 					ProductID__c = productId,
-					Quantity__c = 1, // Установите желаемое значение количества
-					Price__c = 0 // Установите желаемую цену
+					Quantity__c = 1,
+					Price__c = 0
 			);
 			orderItems.add(orderItem);
 		}
@@ -56,12 +58,34 @@ public class orderController {
 		update ordersToUpdate;
 	}
 
-	public static void updateOrder(Id orderId, Decimal totalPrice) {
-		Order__c order = new Order__c(
-				Id = orderId,
-				TotalPrice__c = totalPrice
-		);
+	public static void updateOrder(Id orderId, Decimal totalPrice, List<ProductData> products) {
+		Order__c order = new Order__c(Id = orderId, TotalPrice__c = totalPrice);
 		update order;
+
+		List<OrderItem__c> orderItems = new List<OrderItem__c>();
+		for (ProductData product : products) {
+			OrderItem__c orderItem = new OrderItem__c(
+					OrderId__c = orderId,
+					ProductID__c = product.productId,
+					Quantity__c = product.quantity,
+					Price__c = product.price
+			);
+			orderItems.add(orderItem);
+		}
+
+		update orderItems;
+	}
+
+	public class ProductData {
+		public Id productId;
+		public Decimal quantity;
+		public Decimal price;
+
+		public ProductData(Id productId, Decimal quantity, Decimal price) {
+			this.productId = productId;
+			this.quantity = quantity;
+			this.price = price;
+		}
 	}
 
 
