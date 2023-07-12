@@ -21,6 +21,7 @@ export default class ProductSearchAndList extends LightningElement {
     selectedFamily = '';
     typeOptions = [];
     familyOptions = [];
+    accountId;
 
     handleSearchTermChange(event) {
         this.searchTerm = event.target.value;
@@ -159,6 +160,15 @@ handleFamilyChange(event) {
 
         // Вычислить общую сумму продуктов
         this.totalPrice = this.selectedProducts.reduce((total, product) => total + product.subtotal, 0);
+
+        // Вызвать Apex-метод updateOrder для обновления поля TotalPrice__c в объекте Order__c
+        updateOrder({ orderId: this.orderId, totalPrice: this.totalPrice })
+            .then(() => {
+                // Обработка успешного обновления поля TotalPrice__c
+            })
+            .catch(error => {
+                // Обработка ошибки при обновлении поля TotalPrice__c
+            });
 
         // Показать Toast сообщение
         const toastEvent = new ShowToastEvent({

@@ -21,6 +21,7 @@ export default class ProductSearchAndList extends LightningElement {
     selectedFamily = '';
     typeOptions = [];
     familyOptions = [];
+    accountId;
 
     handleSearchTermChange(event) {
         this.searchTerm = event.target.value;
