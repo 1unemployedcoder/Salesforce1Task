@@ -13,7 +13,8 @@ export default class ProductSearchAndList extends LightningElement {
     @track isModalOpen2 = false;
     @track showCartModal = false;
     @track products;
-    @track selectedProducts = []; // New property to store selected products
+    @track selectedProducts = []; // Массив для хранения выбранных продуктов
+    totalPrice = 0; // Переменная для хранения общей суммы продуктов
     selectedProduct;
     selectedType = '';
     selectedFamily = '';
@@ -126,18 +127,42 @@ handleFamilyChange(event) {
     this.selectedFamily = event.target.value;
     this.filterProducts();
 }
-handleAddToCart(event) {
-    const productId = event.target.dataset.id;
-    const product = this.products.find(product => product.Name === productId);
-    this.selectedProducts.push(product); // Add the selected product to selectedProducts array
+    handleAddToCart(event) {
+        const productId = event.target.dataset.id;
+        const product = this.products.find(product => product.Name === productId);
 
-    // Show Toast message
-    const toastEvent = new ShowToastEvent({
-        title: 'Success',
-        message: 'Product added to cart',
-        variant: 'success'
-    });
-    this.dispatchEvent(toastEvent);
+        const existingProduct = this.selectedProducts.find(item => item.Name === product.Name);
+        if (existingProduct) {
+            existingProduct.quantity++;
+            existingProduct.subtotal = existingProduct.Price__c * existingProduct.quantity;
+        } else {
+            const newProduct = { ...product, quantity: 1, subtotal: product.Price__c };
+            this.selectedProducts.push(newProduct);
+        }
 
+        // Вычислить общую сумму продуктов
+        this.totalPrice = this.selectedProducts.reduce((total, product) => total + product.subtotal, 0);
+
+        // Показать Toast сообщение
+        const toastEvent = new ShowToastEvent({
+            title: 'Success',
+            message: 'Product added to cart',
+            variant: 'success'
+        });
+        this.dispatchEvent(toastEvent);
+    }
+
+get quantity() {
+    const quantityMap = this.selectedProducts.reduce((map, product) => {
+        map[product.Name] = (map[product.Name] || 0) + 1;
+        return map;
+    }, {});
+
+    return product => quantityMap[product.Name] || 0;
 }
+
+getProductSubtotal(product) {
+    return product.Price__c * this.quantity(product);
+}
+
 }
