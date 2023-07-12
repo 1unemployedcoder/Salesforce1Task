@@ -1,5 +1,5 @@
 <template>
-    <lightning-button label="Cart" title="Cart" onclick={openCartModal}></lightning-button>
+    <lightning-button label="Cart" title="Cart" onclick={openCartModal} variant="brand"></lightning-button>
     <template if:true={showCartModal}>
         <div class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container">
@@ -8,6 +8,12 @@
                 </div>
                 <div class="slds-modal__content">
                     <!-- Add your cart table here -->
+                    <template for:each={selectedProducts} for:item="product">
+                        <div key={product.Name}>
+                            <p>{product.Name}</p>
+                            <!-- Display other details of the product -->
+                        </div>
+                    </template>
                 </div>
                 <div class="slds-modal__footer">
                     <lightning-button label="Checkout" variant="brand" onclick={checkout}></lightning-button>
@@ -59,6 +65,7 @@
                                               label="Add"
                                               title="Add"
                                               onclick={handleAddToCart}
+                                              data-id={product.Name}
                                               class="slds-m-left_x-small">
                             </lightning-button>
                         </div>

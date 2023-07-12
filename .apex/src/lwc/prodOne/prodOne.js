@@ -5,7 +5,6 @@ import getProductTypes from '@salesforce/apex/orderFilter.getProductTypes';
 import getProductFamilies from '@salesforce/apex/orderFilter.getProductFamilies';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-
 export default class ProductSearchAndList extends LightningElement {
     @track searchTerm;
     @track searchResults;
@@ -14,6 +13,7 @@ export default class ProductSearchAndList extends LightningElement {
     @track isModalOpen2 = false;
     @track showCartModal = false;
     @track products;
+    @track selectedProducts = []; // New property to store selected products
     selectedProduct;
     selectedType = '';
     selectedFamily = '';
@@ -127,14 +127,17 @@ handleFamilyChange(event) {
     this.filterProducts();
 }
 handleAddToCart(event) {
-        // Ваша логика добавления продукта в корзину
+    const productId = event.target.dataset.id;
+    const product = this.products.find(product => product.Name === productId);
+    this.selectedProducts.push(product); // Add the selected product to selectedProducts array
 
-        // Показать сообщение Toast
-        const toastEvent = new ShowToastEvent({
-            title: 'Success',
-            message: 'Product added to cart',
-            variant: 'success'
-        });
-        this.dispatchEvent(toastEvent);
-    }
+    // Show Toast message
+    const toastEvent = new ShowToastEvent({
+        title: 'Success',
+        message: 'Product added to cart',
+        variant: 'success'
+    });
+    this.dispatchEvent(toastEvent);
+
+}
 }
