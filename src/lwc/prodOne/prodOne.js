@@ -4,7 +4,7 @@ import getProducts from '@salesforce/apex/products.getProducts';
 import getProductTypes from '@salesforce/apex/orderFilter.getProductTypes';
 import getProductFamilies from '@salesforce/apex/orderFilter.getProductFamilies';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import createOrder from '@salesforce/apex/orderController.createOrder';
+import createOrderAndOrderItems from '@salesforce/apex/orderController.createOrderAndOrderItems';
 
 export default class ProductSearchAndList extends LightningElement {
     @track searchTerm;
@@ -14,6 +14,7 @@ export default class ProductSearchAndList extends LightningElement {
     @track isModalOpen2 = false;
     @track showCartModal = false;
     @track products;
+    @track totalProductCount = 0;
     @track selectedProducts = []; // Массив для хранения выбранных продуктов
     totalPrice = 0; // Переменная для хранения общей суммы продуктов
     selectedProduct;
@@ -36,24 +37,18 @@ export default class ProductSearchAndList extends LightningElement {
       }
 
       checkout() {
-          const selectedProductIds = this.selectedProducts.map(product => product.Id);
+              const selectedProductIds = this.selectedProducts.map(product => product.Id);
+              const totalPrice = this.totalPrice;
+              const totalProductCount = this.totalProductCount;
 
-          createOrder({ accountId: this.accountId, productIds: selectedProductIds })
-              .then(result => {
-                  // Обработка успешного создания заказа
-                  // Например, перенаправление на стандартную страницу заказа
-                  window.location.href = '/' + result;
-              })
-              .catch(error => {
-                  // Обработка ошибки при создании заказа
-                  const toastEvent = new ShowToastEvent({
-                      title: 'Error',
-                      message: 'Failed to create order',
-                      variant: 'error'
+              createOrderAndOrderItems({ accountId: this.accountId, totalPrice, totalProductCount })
+                  .then(() => {
+                      // Здесь можно добавить обработку успешного создания заказа и пунктов заказа
+                  })
+                  .catch(error => {
+                      // Здесь можно добавить обработку ошибки при создании заказа и пунктов заказа
                   });
-                  this.dispatchEvent(toastEvent);
-              });
-      }
+          }
 
     handleSearch() {
         searchProducts({ searchTerm: this.searchTerm })
@@ -146,32 +141,31 @@ handleFamilyChange(event) {
     this.filterProducts();
 }
     handleAddToCart(event) {
+        // Получить выбранный продукт
         const productId = event.target.dataset.id;
         const product = this.products.find(product => product.Name === productId);
 
+        // Получить количество и цену продукта
         const quantity = 1; // Здесь вы можете использовать свою логику для получения количества
         const price = product.Price__c; // Здесь вы можете использовать свою логику для получения цены
 
+        // Проверить, существует ли продукт уже в корзине
         const existingProduct = this.selectedProducts.find(item => item.Name === product.Name);
         if (existingProduct) {
+            // Если продукт уже есть в корзине, обновить его количество и подытог
             existingProduct.quantity += quantity;
             existingProduct.subtotal = existingProduct.Price__c * existingProduct.quantity;
         } else {
+            // Если продукта нет в корзине, добавить его
             const newProduct = { ...product, quantity: quantity, subtotal: price };
             this.selectedProducts.push(newProduct);
         }
 
+        // Вычислить общее количество продуктов
+        this.totalProductCount = this.selectedProducts.reduce((total, product) => total + product.quantity, 0);
+
         // Вычислить общую сумму продуктов
         this.totalPrice = this.selectedProducts.reduce((total, product) => total + product.subtotal, 0);
-
-        // Вызвать Apex-метод updateOrder для обновления заказа с учетом продуктов и цен
-        updateOrder({ orderId: this.orderId, totalPrice: this.totalPrice, products: this.selectedProducts.map(product => new ProductData(product.Id, product.quantity, product.Price__c)) })
-            .then(() => {
-                // Обработка успешного обновления заказа
-            })
-            .catch(error => {
-                // Обработка ошибки при обновлении заказа
-            });
 
         // Показать Toast сообщение
         const toastEvent = new ShowToastEvent({
@@ -188,6 +182,9 @@ get quantity() {
         return map;
     }, {});
 
+    // Обновить значение totalProductCount
+    this.totalProductCount = Object.values(quantityMap).reduce((total, quantity) => total + quantity, 0);
+
     return product => quantityMap[product.Name] || 0;
 }
 
@@ -195,10 +192,3 @@ getProductSubtotal(product) {
     return product.Price__c * this.quantity(product);
 }
   }
-class ProductData {
-  constructor(productId, quantity, price) {
-    this.productId = productId;
-    this.quantity = quantity;
-    this.price = price;
-  }
-}
