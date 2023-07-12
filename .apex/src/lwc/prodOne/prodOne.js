@@ -4,6 +4,7 @@ import getProducts from '@salesforce/apex/products.getProducts';
 import getProductTypes from '@salesforce/apex/orderFilter.getProductTypes';
 import getProductFamilies from '@salesforce/apex/orderFilter.getProductFamilies';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import createOrder from '@salesforce/apex/orderController.createOrder';
 
 export default class ProductSearchAndList extends LightningElement {
     @track searchTerm;
@@ -34,8 +35,24 @@ export default class ProductSearchAndList extends LightningElement {
       }
 
       checkout() {
-          // Implement your checkout logic here
-        }
+          const selectedProductIds = this.selectedProducts.map(product => product.Id);
+
+          createOrder({ accountId: this.accountId, productIds: selectedProductIds })
+              .then(result => {
+                  // Обработка успешного создания заказа
+                  // Например, перенаправление на стандартную страницу заказа
+                  window.location.href = '/' + result;
+              })
+              .catch(error => {
+                  // Обработка ошибки при создании заказа
+                  const toastEvent = new ShowToastEvent({
+                      title: 'Error',
+                      message: 'Failed to create order',
+                      variant: 'error'
+                  });
+                  this.dispatchEvent(toastEvent);
+              });
+      }
 
     handleSearch() {
         searchProducts({ searchTerm: this.searchTerm })
