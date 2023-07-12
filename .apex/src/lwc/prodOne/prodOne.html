@@ -1,4 +1,22 @@
 <template>
+    <lightning-button label="Cart" title="Cart" onclick={openCartModal}></lightning-button>
+    <template if:true={showCartModal}>
+        <div class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <div class="slds-modal__header">
+                    <h2 class="slds-modal__title">Cart</h2>
+                </div>
+                <div class="slds-modal__content">
+                    <!-- Add your cart table here -->
+                </div>
+                <div class="slds-modal__footer">
+                    <lightning-button label="Checkout" variant="brand" onclick={checkout}></lightning-button>
+                    <lightning-button label="Close" variant="neutral" onclick={closeCartModal}></lightning-button>
+                </div>
+            </div>
+        </div>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
     <lightning-card title="Filter">
         <div class="slds-m-around_medium">
             <lightning-layout>

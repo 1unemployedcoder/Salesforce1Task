@@ -12,6 +12,7 @@ export default class ProductSearchAndList extends LightningElement {
     @track displayProducts;
     @track isModalOpen1 = false;
     @track isModalOpen2 = false;
+    @track showCartModal = false;
     @track products;
     selectedProduct;
     selectedType = '';
@@ -22,6 +23,18 @@ export default class ProductSearchAndList extends LightningElement {
     handleSearchTermChange(event) {
         this.searchTerm = event.target.value;
     }
+
+    openCartModal() {
+        this.showCartModal = true;
+      }
+
+     closeCartModal() {
+        this.showCartModal = false;
+      }
+
+      checkout() {
+          // Implement your checkout logic here
+        }
 
     handleSearch() {
         searchProducts({ searchTerm: this.searchTerm })
