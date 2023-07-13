@@ -13,6 +13,7 @@ export default class ProductSearchAndList extends LightningElement {
     @track isModalOpen1 = false;
     @track isModalOpen2 = false;
     @track showCartModal = false;
+    @track showCheckoutView = false;
     @track products;
     @track totalProductCount = 0;
     @track selectedProducts = []; // Массив для хранения выбранных продуктов
@@ -40,6 +41,8 @@ export default class ProductSearchAndList extends LightningElement {
               const selectedProductIds = this.selectedProducts.map(product => product.Id);
               const totalPrice = this.totalPrice;
               const totalProductCount = this.totalProductCount;
+              this.showCheckoutView = true;
+              this.showCartModal = false;
 
               createOrderAndOrderItems({ accountId: this.accountId, totalPrice, totalProductCount })
                   .then(() => {
@@ -48,6 +51,12 @@ export default class ProductSearchAndList extends LightningElement {
                   .catch(error => {
                       // Здесь можно добавить обработку ошибки при создании заказа и пунктов заказа
                   });
+          }
+          goBack() {
+              this.showCheckoutView = false;
+              this.selectedProducts = [];
+              this.totalPrice = 0;
+              this.totalProductCount = 0;
           }
 
     handleSearch() {

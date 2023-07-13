@@ -2,23 +2,7 @@
 <project version="4">
   <component name="ApexVcsIndex">
     <index-record>
-      <option name="path" value="/src/lwc/test1/test1.js" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/productsList/productsList.html" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/pubsub/pubsub.js-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/orderManagementPage/orderManagementPage.js" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/test2/test2.js-meta.xml" />
+      <option name="path" value="/src/lwc/pubsub/pubsub.html" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
@@ -26,102 +10,7 @@
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/classes/OrderManagementController.cls-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/orderManagement/prodList.html" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/orderManagementPage/orderManagementPage.js-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/pubsub/pubsub.html" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/accSelect/accSelect.js-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/detaisModal/detaisModal.js" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/databindingChild/databindingChild.js-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/objects/User__c.object" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/productsList/productsList.js" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/aura/accountSelectionContainer/accountSelectionContainer.cmp-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/cartModal/cartModal.js" />
-      <option name="type" value="MODIFIED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/detaisModal/detaisModal.html" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/accSelect/accSelect.js" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/aura/accountSelectionContainer/accountSelectionContainer.cmp" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/classes/orderManagementController.cls" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/detaisModal/detaisModal.js-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/pubsub/pubsub.js" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/orderManagementPage/orderManagementPage.html" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/classes/orderManagementPage.cls" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/classes/orderManagementPage.cls-meta.xml" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/classes/orderController.cls" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/accSelect/accSelect.html" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/test2/test2.html" />
-      <option name="type" value="DELETED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/triggers/orderTrigger.trigger" />
-      <option name="type" value="MODIFIED" />
-    </index-record>
-    <index-record>
-      <option name="path" value="/src/lwc/productdetailsmodal/productdetailsmodal.js-meta.xml" />
+      <option name="path" value="/src/lwc/productsList/productsList.js-meta.xml" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
@@ -129,11 +18,63 @@
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/lwc/test2/test2.js" />
+      <option name="path" value="/src/lwc/productsList/productsList.js" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/lwc/productsList/productsList.js-meta.xml" />
+      <option name="path" value="/src/triggers/orderTrigger.trigger" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/triggers/orderTrigger.trigger-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/detaisModal/detaisModal.js-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/orderManagement/prodList.html" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/classes/OrderManagementController.cls-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/pubsub/pubsub.js" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/productdetailsmodal/productdetailsmodal.js-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/test1/test1.js" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/test2/test2.js-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/test2/test2.html" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/detaisModal/detaisModal.html" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/classes/orderManagementPage.cls" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/orderManagementPage/orderManagementPage.js" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/accSelect/accSelect.js" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
@@ -141,11 +82,50 @@
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/lwc/databindingChild/databindingChild.html" />
+      <option name="path" value="/src/aura/accountSelectionContainer/accountSelectionContainer.cmp" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
-      <option name="path" value="/src/lwc/productdetailsmodal/productdetailsmodal.js" />
+      <option name="path" value="/src/lwc/accSelect/accSelect.html" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/aura/accountSelectionContainer/accountSelectionContainer.cmp-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/orderManagementPage/orderManagementPage.html" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/classes/orderManagementController.cls" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/productsList/productsList.html" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/detaisModal/detaisModal.js" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/test2/test2.js" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/accSelect/accSelect.js-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/orderManagementPage/orderManagementPage.js-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/prodOne/prodOne.js" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/databindingChild/databindingChild.html" />
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
@@ -153,7 +133,31 @@
       <option name="type" value="DELETED" />
     </index-record>
     <index-record>
+      <option name="path" value="/src/lwc/databindingChild/databindingChild.js-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
       <option name="path" value="/src/lwc/accSelect/accountSelectionContainer.cmp" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/objects/User__c.object" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/classes/orderManagementPage.cls-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/pubsub/pubsub.js-meta.xml" />
+      <option name="type" value="DELETED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/cartModal/cartModal.js" />
+      <option name="type" value="MODIFIED" />
+    </index-record>
+    <index-record>
+      <option name="path" value="/src/lwc/productdetailsmodal/productdetailsmodal.js" />
       <option name="type" value="DELETED" />
     </index-record>
   </component>
