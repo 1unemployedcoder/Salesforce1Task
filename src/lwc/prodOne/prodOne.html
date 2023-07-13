@@ -1,4 +1,11 @@
 <template>
+    <div class="slds-modal__content slds-p-around_medium slds-is-relative">
+        <div class="slds-card slds-p-around_medium">
+            <div class="slds-grid slds-grid_align-end">
+                <div class="slds-col slds-size_1-of-2">
+                    <c-order-Page></c-order-Page>
+                </div>
+            </div>
     <template if:true={showCheckoutView}>
         <div class="slds-container">
             <h1 class="slds-text-heading_large">Order Summary</h1>
@@ -15,6 +22,9 @@
         </div>
     </template>
 <template if:false={showCheckoutView}>
+    <div class="slds-col slds-size_1-of-2">
+        <c-createbutton></c-createbutton>
+    </div>
     <lightning-button label="Cart" title="Cart" onclick={openCartModal} variant="brand"></lightning-button>
 
     <template if:true={showCartModal}>
@@ -24,16 +34,43 @@
                     <h2 class="slds-modal__title">Cart</h2>
                 </div>
                 <div class="slds-modal__content">
-                    <!-- Код таблицы для отображения продуктов в корзине -->
-                    <template for:each={selectedProducts} for:item="product">
-                        <div key={product.Name}>
-                            <p>{product.Name}</p>
-                            <p>Price: {product.Price__c}</p>
-                            <p>Quantity: {product.quantity}</p>
-                            <p>Subtotal: {product.subtotal}</p>
+                    <div class="slds-grid slds-wrap">
+                        <div class="slds-col slds-size_1-of-5">
+                            <p class="slds-text-heading_small"><strong>Name</strong></p>
                         </div>
-                    </template>
-                    <p>Total Price: {totalPrice}</p>
+                        <div class="slds-col slds-size_1-of-5">
+                            <p class="slds-text-heading_small"><strong>Price</strong></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-5">
+                            <p class="slds-text-heading_small"><strong>Quantity</strong></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-5">
+                            <p class="slds-text-heading_small"><strong>Subtotal</strong></p>
+                        </div>
+                        <div class="slds-col slds-size_1-of-5">
+                            <p class="slds-text-heading_small"><strong>Image</strong></p>
+                        </div>
+                        <template for:each={selectedProducts} for:item="product">
+                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                                <p class="slds-text-body_small">{product.Name}</p>
+                            </div>
+                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                            <p class="slds-text-body_small">{product.Price__c}</p>
+                            </div>
+                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                            <p class="slds-text-body_small">{product.quantity}</p>
+                            </div>
+                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                            <p class="slds-text-body_small">{product.subtotal}</p>
+                            </div>
+                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                                <img src={product.Image__c} alt={product.Name} class="slds-image">
+                            </div>
+                            </template>
+                    </div>
+                    <div class="slds-float_right">
+                        <strong>Total Price: {totalPrice}</strong>
+                    </div>
                 </div>
                 <div class="slds-modal__footer">
                     <lightning-button label="Checkout" variant="brand" onclick={checkout}></lightning-button>
@@ -130,4 +167,6 @@
         </template>
     </lightning-card>
 </template>
+        </div>
+    </div>
 </template>

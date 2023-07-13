@@ -25,6 +25,25 @@ export default class ProductSearchAndList extends LightningElement {
     familyOptions = [];
     accountId;
 
+    handleFetchImage(productName) {
+            // Выполните запрос fetch внутри метода
+            fetch(`http://www.glyffix.com/api/Image?word=${product.Name}`)
+              .then(response => response.json())
+              .then(data => {
+                // Handle the response data
+                if (data && data.image) {
+                  // If the response contains an image URL
+                  product.Image__c = data.image;
+                } else {
+                  // Handle the case when the image URL is not available
+                }
+              })
+              .catch(error => {
+                // Handle errors in the request
+                console.error('Error fetching image:', error);
+              });
+        }
+
     handleSearchTermChange(event) {
         this.searchTerm = event.target.value;
     }
