@@ -65,7 +65,12 @@ export default class ProductSearchAndList extends LightningElement {
 
               createOrderAndOrderItems({ accountId: this.accountId, totalPrice, totalProductCount })
                   .then(() => {
-                      // Здесь можно добавить обработку успешного создания заказа и пунктов заказа
+                      const toastEvent = new ShowToastEvent({
+                                  title: 'Success',
+                                  message: 'Order Created!',
+                                  variant: 'success'
+                              });
+                              this.dispatchEvent(toastEvent);
                   })
                   .catch(error => {
                       // Здесь можно добавить обработку ошибки при создании заказа и пунктов заказа
