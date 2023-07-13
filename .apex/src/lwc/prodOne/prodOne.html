@@ -1,11 +1,6 @@
 <template>
     <div class="slds-modal__content slds-p-around_medium slds-is-relative">
         <div class="slds-card slds-p-around_medium">
-            <div class="slds-grid slds-grid_align-end">
-                <div class="slds-col slds-size_1-of-2">
-                    <c-order-Page></c-order-Page>
-                </div>
-            </div>
             <template if:true={showCheckoutView}>
                 <div class="slds-container">
                     <h1 class="slds-text-heading_large">Order Summary</h1>
@@ -34,10 +29,20 @@
                 </div>
             </template>
 <template if:false={showCheckoutView}>
-    <div class="slds-col slds-size_1-of-2">
-        <c-createbutton></c-createbutton>
-    </div>
-    <lightning-button label="Cart" title="Cart" onclick={openCartModal} variant="brand"></lightning-button>
+    <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-2">
+            <div class="slds-m-around_medium">
+                <c-order-page></c-order-page>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-2">
+            <div class="slds-m-around_medium">
+                <c-createbutton></c-createbutton>
+            </div>
+        </div>
+        <div class="slds-col slds-size_12-of-12">
+            <div class="slds-m-around_medium">
+    <lightning-button label="Cart" title="Cart" onclick={openCartModal} variant="brand" ></lightning-button>
 
     <template if:true={showCartModal}>
         <div class="slds-modal slds-fade-in-open">
@@ -106,10 +111,10 @@
     </lightning-card>
     <lightning-card title="Search">
         <div class="slds-grid slds-grid_vertical-align-center slds-gutters">
-            <div class="slds-col slds-size_1-of-3">
+            <div class="slds-col slds-size_1-of-2">
                 <lightning-input type="text" value={searchTerm} onchange={handleSearchTermChange}></lightning-input>
             </div>
-            <div class="slds-col slds-size_1-of-3">
+            <div class="slds-col slds-size_1-of-2">
                 <lightning-button label="Search" onclick={handleSearch}></lightning-button>
             </div>
         </div>
@@ -186,6 +191,9 @@
             <div class="slds-backdrop slds-backdrop_open"></div>
         </template>
     </lightning-card>
+            </div>
+        </div>
+    </div>
 </template>
         </div>
     </div>

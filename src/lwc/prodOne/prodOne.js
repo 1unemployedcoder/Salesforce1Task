@@ -95,12 +95,24 @@ export default class ProductSearchAndList extends LightningElement {
     }
 
 filterProducts() {
-    this.displayProducts = this.products.filter(product =>
-        (product.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        (product.Description__c && product.Description__c.toLowerCase().includes(this.searchTerm.toLowerCase())))
-        && (this.selectedType === '' || product.Type__c === this.selectedType)
-        && (this.selectedFamily === '' || product.Family__c === this.selectedFamily)
-    );
+    let filteredProducts = this.products;
+
+    if (this.searchTerm) {
+        filteredProducts = filteredProducts.filter(product =>
+            product.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+            (product.Description__c && product.Description__c.toLowerCase().includes(this.searchTerm.toLowerCase()))
+        );
+    }
+
+    if (this.selectedType) {
+        filteredProducts = filteredProducts.filter(product => product.Type__c === this.selectedType);
+    }
+
+    if (this.selectedFamily) {
+        filteredProducts = filteredProducts.filter(product => product.Family__c === this.selectedFamily);
+    }
+
+    this.displayProducts = filteredProducts;
 }
 
     get isSearchResultsEmpty() {
