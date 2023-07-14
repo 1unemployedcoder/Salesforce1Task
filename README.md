@@ -12,7 +12,7 @@ Project is created with:
 Hello Salesforce Team. I wanna to became trainee in your company and so I tried to do this task. It's been hard. Let's view.
 
 Main LWC components in this project:
-* orderOne - biggest LWC with so much functions, templates and algorithms.
+* productOne - biggest LWC with so much functions, templates and algorithms.
 * createButton - LWC, which is a button that creates a product. (ofc if u isManager = true)
 * orderPage - LWC, which displays you your Account and AccountID__c
 
