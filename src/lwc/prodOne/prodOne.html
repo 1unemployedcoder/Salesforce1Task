@@ -1,200 +1,226 @@
 <template>
     <div class="slds-modal__content slds-p-around_medium slds-is-relative">
         <div class="slds-card slds-p-around_medium">
-            <template if:true={showCheckoutView}>
-                <div class="slds-container">
-                    <h1 class="slds-text-heading_large">Order Summary</h1>
-                    <table class="slds-table slds-table_bordered slds-table_cell-buffer">
-                        <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Subtotal</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <template for:each={selectedProducts} for:item="product">
-                            <tr key={product.Name}>
-                                <td>{product.Name}</td>
-                                <td>{product.quantity}</td>
-                                <td>{product.Price__c}</td>
-                                <td>{product.subtotal}</td>
-                            </tr>
+            <lightning-card title=" ">
+                <div class="slds-text-align_center" if:true={showOrderManagement}>
+                    <h2 class="slds-text-heading_small slds-text-title_bold slds-m-bottom_small">
+                        Account login
+                    </h2>
+                    <div class="slds-m-bottom_medium">
+                        <c-order-Page></c-order-Page>
+                    </div>
+                    <div class="slds-m-top_medium">
+                        <lightning-button variant="brand" label="Log In" title="Download action with brand variant" icon-name="utility:key" onclick={handleOpenOrderManagement}></lightning-button>
+                    </div>
+                </div>
+            </lightning-card>
+            <div if:false={showOrderManagement}>
+                <div class="slds-modal__content slds-p-around_medium slds-is-relative">
+                    <div class="slds-card slds-p-around_medium">
+                        <template if:true={showCheckoutView}>
+                            <div class="slds-container">
+                                <h1 class="slds-text-heading_large">Order Summary</h1>
+                                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                                    <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <template for:each={selectedProducts} for:item="product">
+                                        <tr key={product.Name}>
+                                            <td>{product.Name}</td>
+                                            <td>{product.quantity}</td>
+                                            <td>{product.Price__c}</td>
+                                            <td>{product.subtotal}</td>
+                                        </tr>
+                                    </template>
+                                    </tbody>
+                                </table>
+                                <p class="slds-text-heading_medium slds-float_right">Total Price: {totalPrice}</p>
+                                <button class="slds-button slds-button_neutral" onclick={goBack}>Back</button>
+                            </div>
                         </template>
-                        </tbody>
-                    </table>
-                    <p class="slds-text-heading_medium slds-float_right">Total Price: {totalPrice}</p>
-                    <button class="slds-button slds-button_neutral" onclick={goBack}>Back</button>
-                </div>
-            </template>
-<template if:false={showCheckoutView}>
-    <div class="slds-grid slds-wrap">
-        <div class="slds-col slds-size_1-of-2">
-            <div class="slds-m-around_medium">
-                <c-order-page></c-order-page>
-            </div>
-        </div>
-        <div class="slds-col slds-size_1-of-2">
-            <div class="slds-m-around_medium">
-                <c-createbutton></c-createbutton>
-            </div>
-        </div>
-        <div class="slds-col slds-size_12-of-12">
-            <div class="slds-m-around_medium">
-    <lightning-button label="Cart" title="Cart" onclick={openCartModal} variant="brand" ></lightning-button>
+                        <template if:false={showCheckoutView}>
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-m-around_medium">
+                                        <lightning-button variant="brand" label="Logout" title="Logout" icon-name="utility:power" onclick={handleLogout}></lightning-button>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-m-around_medium">
+                                        <c-order-page></c-order-page>
+                                    </div>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <div class="slds-m-around_medium">
+                                        <c-createbutton></c-createbutton>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="slds-m-around_medium">
+                                <lightning-button label="Cart" title="Cart" onclick={openCartModal} variant="brand"></lightning-button>
+                            </div>
 
-    <template if:true={showCartModal}>
-        <div class="slds-modal slds-fade-in-open">
-            <div class="slds-modal__container">
-                <div class="slds-modal__header">
-                    <h2 class="slds-modal__title">Cart</h2>
-                </div>
-                <div class="slds-modal__content">
-                    <div class="slds-grid slds-wrap">
-                        <div class="slds-col slds-size_1-of-5">
-                            <p class="slds-text-heading_small"><strong>Name</strong></p>
-                        </div>
-                        <div class="slds-col slds-size_1-of-5">
-                            <p class="slds-text-heading_small"><strong>Price</strong></p>
-                        </div>
-                        <div class="slds-col slds-size_1-of-5">
-                            <p class="slds-text-heading_small"><strong>Quantity</strong></p>
-                        </div>
-                        <div class="slds-col slds-size_1-of-5">
-                            <p class="slds-text-heading_small"><strong>Subtotal</strong></p>
-                        </div>
-                        <div class="slds-col slds-size_1-of-5">
-                            <p class="slds-text-heading_small"><strong>Image</strong></p>
-                        </div>
-                        <template for:each={selectedProducts} for:item="product">
-                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
-                                <p class="slds-text-body_small">{product.Name}</p>
-                            </div>
-                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
-                            <p class="slds-text-body_small">{product.Price__c}</p>
-                            </div>
-                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
-                            <p class="slds-text-body_small">{product.quantity}</p>
-                            </div>
-                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
-                            <p class="slds-text-body_small">{product.subtotal}</p>
-                            </div>
-                            <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
-                                <img src={product.Image__c} alt={product.Name} class="slds-image">
-                            </div>
+                            <template if:true={showCartModal}>
+                                <div class="slds-modal slds-fade-in-open">
+                                    <div class="slds-modal__container">
+                                        <div class="slds-modal__header">
+                                            <h2 class="slds-modal__title">Cart</h2>
+                                        </div>
+                                        <div class="slds-modal__content">
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_1-of-5">
+                                                    <p class="slds-text-heading_small"><strong>Name</strong></p>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-5">
+                                                    <p class="slds-text-heading_small"><strong>Price</strong></p>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-5">
+                                                    <p class="slds-text-heading_small"><strong>Quantity</strong></p>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-5">
+                                                    <p class="slds-text-heading_small"><strong>Subtotal</strong></p>
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-5">
+                                                    <p class="slds-text-heading_small"><strong>Image</strong></p>
+                                                </div>
+                                                <template for:each={selectedProducts} for:item="product">
+                                                    <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                                                        <p class="slds-text-body_small">{product.Name}</p>
+                                                    </div>
+                                                    <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                                                        <p class="slds-text-body_small">{product.Price__c}</p>
+                                                    </div>
+                                                    <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                                                        <p class="slds-text-body_small">{product.quantity}</p>
+                                                    </div>
+                                                    <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                                                        <p class="slds-text-body_small">{product.subtotal}</p>
+                                                    </div>
+                                                    <div key={product.Id} class="slds-col slds-size_1-of-5 slds-p-around_medium slds-box">
+                                                        <img src={product.Image__c} alt={product.Name} class="slds-image">
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            <div class="slds-float_right">
+                                                <strong>Total Price: {totalPrice}</strong>
+                                            </div>
+                                        </div>
+                                        <div class="slds-modal__footer">
+                                            <lightning-button label="Checkout" variant="brand" onclick={checkout}></lightning-button>
+                                            <lightning-button label="Close" variant="neutral" onclick={closeCartModal}></lightning-button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="slds-backdrop slds-backdrop_open"></div>
                             </template>
-                    </div>
-                    <div class="slds-float_right">
-                        <strong>Total Price: {totalPrice}</strong>
+                            <lightning-card title="Filter">
+                                <div class="slds-m-around_medium">
+                                    <lightning-layout>
+                                        <lightning-layout-item size="6" padding="around-small">
+                                            <lightning-combobox label="Type" options={typeOptions} onchange={handleTypeChange} value={selectedType}></lightning-combobox>
+                                        </lightning-layout-item>
+                                        <lightning-layout-item size="6" padding="around-small">
+                                            <lightning-combobox label="Family" options={familyOptions} onchange={handleFamilyChange} value={selectedFamily}></lightning-combobox>
+                                        </lightning-layout-item>
+                                    </lightning-layout>
+                                </div>
+                            </lightning-card>
+                            <lightning-card title="Search">
+                                <div class="slds-grid slds-grid_vertical-align-center slds-gutters">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-m-around_medium">
+                                            <lightning-input type="text" value={searchTerm} onchange={handleSearchTermChange}></lightning-input>
+                                        </div>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <div class="slds-m-around_medium">
+                                            <lightning-button label="Search" onclick={handleSearch}></lightning-button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="background-color: white; padding: 20px;">
+                                    <h1 style="background-color: lightgray; padding: 10px; text-align: center; margin-bottom: 10px;">
+                                        <strong>Products</strong>
+                                    </h1>
+                                    <template if:true={displayProducts}>
+                                        <template for:each={displayProducts} for:item="product">
+                                            <div key={product.Name} style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
+                                                <p>{product.Name}</p>
+                                                <p>{product.Description__c}</p>
+                                                <div>
+                                                    <lightning-button variant="brand"
+                                                                      label="Details"
+                                                                      title="Details"
+                                                                      onclick={openModal1}
+                                                                      data-id={product.Name}
+                                                                      class="slds-m-left_x-small">
+                                                    </lightning-button>
+                                                    <lightning-button variant="brand"
+                                                                      label="Add"
+                                                                      title="Add"
+                                                                      onclick={handleAddToCart}
+                                                                      data-id={product.Name}
+                                                                      class="slds-m-left_x-small">
+                                                    </lightning-button>
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </template>
+                                    <template if:false={displayProducts}>
+                                        <p>No products found.</p>
+                                    </template>
+                                </div>
+                                <template if:true={isModalOpen1}>
+                                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                                        <div class="slds-modal__container">
+                                            <header class="slds-modal__header">
+                                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal1}>
+                                                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
+                                                    <span class="slds-assistive-text">Close</span>
+                                                </button>
+                                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Details</h2>
+                                            </header>
+                                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                                <div class="slds-grid slds-wrap">
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <p><strong>Name:</strong> {selectedProduct.Name}</p>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <p><strong>Image:</strong></p>
+                                                        <img src={selectedProduct.Image__c} alt={selectedProduct.Name} class="slds-image" />
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <p><strong>Description:</strong> {selectedProduct.Description__c}</p>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <p><strong>Type:</strong> {selectedProduct.Type__c}</p>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <p><strong>Family:</strong> {selectedProduct.Family__c}</p>
+                                                    </div>
+                                                    <div class="slds-col slds-size_1-of-2">
+                                                        <p><strong>Price:</strong> {selectedProduct.Price__c}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <footer class="slds-modal__footer">
+                                                <button class="slds-button slds-button_brand" onclick={submitDetails1} title="OK">OK</button>
+                                            </footer>
+                                        </div>
+                                    </section>
+                                    <div class="slds-backdrop slds-backdrop_open"></div>
+                                </template>
+                            </lightning-card>
+                        </template>
                     </div>
                 </div>
-                <div class="slds-modal__footer">
-                    <lightning-button label="Checkout" variant="brand" onclick={checkout}></lightning-button>
-                    <lightning-button label="Close" variant="neutral" onclick={closeCartModal}></lightning-button>
-                </div>
             </div>
-        </div>
-        <div class="slds-backdrop slds-backdrop_open"></div>
-    </template>
-    <lightning-card title="Filter">
-        <div class="slds-m-around_medium">
-            <lightning-layout>
-                <lightning-layout-item size="6" padding="around-small">
-                    <lightning-combobox label="Type" options={typeOptions} onchange={handleTypeChange} value={selectedType}></lightning-combobox>
-                </lightning-layout-item>
-                <lightning-layout-item size="6" padding="around-small">
-                    <lightning-combobox label="Family" options={familyOptions} onchange={handleFamilyChange} value={selectedFamily}></lightning-combobox>
-                </lightning-layout-item>
-            </lightning-layout>
-        </div>
-    </lightning-card>
-    <lightning-card title="Search">
-        <div class="slds-grid slds-grid_vertical-align-center slds-gutters">
-            <div class="slds-col slds-size_1-of-2">
-                <lightning-input type="text" value={searchTerm} onchange={handleSearchTermChange}></lightning-input>
-            </div>
-            <div class="slds-col slds-size_1-of-2">
-                <lightning-button label="Search" onclick={handleSearch}></lightning-button>
-            </div>
-        </div>
-        <div style="background-color: white; padding: 20px;">
-            <h1 style="background-color: lightgray; padding: 10px; text-align: center; margin-bottom: 10px;">
-                <strong>Products</strong>
-            </h1>
-            <template if:true={displayProducts}>
-                <template for:each={displayProducts} for:item="product">
-                    <div key={product.Name} style="border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;">
-                        <p>{product.Name}</p>
-                        <p>{product.Description__c}</p>
-                        <div>
-                            <lightning-button variant="brand"
-                                              label="Details"
-                                              title="Details"
-                                              onclick={openModal1}
-                                              data-id={product.Name}
-                                              class="slds-m-left_x-small">
-                            </lightning-button>
-                            <lightning-button variant="brand"
-                                              label="Add"
-                                              title="Add"
-                                              onclick={handleAddToCart}
-                                              data-id={product.Name}
-                                              class="slds-m-left_x-small">
-                            </lightning-button>
-                        </div>
-                    </div>
-                </template>
-            </template>
-            <template if:false={displayProducts}>
-                <p>No products found.</p>
-            </template>
-        </div>
-        <template if:true={isModalOpen1}>
-            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
-                <div class="slds-modal__container">
-                    <header class="slds-modal__header">
-                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal1}>
-                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small"></lightning-icon>
-                            <span class="slds-assistive-text">Close</span>
-                        </button>
-                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Details</h2>
-                    </header>
-                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                        <div class="slds-grid slds-wrap">
-                            <div class="slds-col slds-size_1-of-2">
-                                <p><strong>Name:</strong> {selectedProduct.Name}</p>
-                            </div>
-                            <div class="slds-col slds-size_1-of-2">
-                                <p><strong>Image:</strong></p>
-                                <img src={selectedProduct.Image__c} alt={selectedProduct.Name} class="slds-image" />
-                            </div>
-                            <div class="slds-col slds-size_1-of-2">
-                                <p><strong>Description:</strong> {selectedProduct.Description__c}</p>
-                            </div>
-                            <div class="slds-col slds-size_1-of-2">
-                                <p><strong>Type:</strong> {selectedProduct.Type__c}</p>
-                            </div>
-                            <div class="slds-col slds-size_1-of-2">
-                                <p><strong>Family:</strong> {selectedProduct.Family__c}</p>
-                            </div>
-                            <div class="slds-col slds-size_1-of-2">
-                                <p><strong>Price:</strong> {selectedProduct.Price__c}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="slds-modal__footer">
-                        <button class="slds-button slds-button_brand" onclick={submitDetails1} title="OK">OK</button>
-                    </footer>
-                </div>
-            </section>
-            <div class="slds-backdrop slds-backdrop_open"></div>
-        </template>
-    </lightning-card>
-            </div>
-        </div>
-    </div>
-</template>
         </div>
     </div>
 </template>

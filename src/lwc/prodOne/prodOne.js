@@ -13,11 +13,12 @@ export default class ProductSearchAndList extends LightningElement {
     @track isModalOpen1 = false;
     @track isModalOpen2 = false;
     @track showCartModal = false;
-    @track showCheckoutView = false;
+    @track showCheckoutView = true;
     @track products;
+    @track showOrderManagement = true;
     @track totalProductCount = 0;
-    @track selectedProducts = []; // Массив для хранения выбранных продуктов
-    totalPrice = 0; // Переменная для хранения общей суммы продуктов
+    @track selectedProducts = [];
+    totalPrice = 0;
     selectedProduct;
     selectedType = '';
     selectedFamily = '';
@@ -25,24 +26,41 @@ export default class ProductSearchAndList extends LightningElement {
     familyOptions = [];
     accountId;
 
+    handleOpenOrderManagement() {
+        this.showOrderManagement = false;
+        this.showCheckoutView = false;
+        const toastEvent = new ShowToastEvent({
+            title: 'Success',
+            message: 'Log In',
+            variant: 'success'
+        });
+        this.dispatchEvent(toastEvent);
+    }
+
+    handleLogout() {
+        this.showOrderManagement = true;
+        this.showCheckoutView = false;
+        const toastEvent = new ShowToastEvent({
+            title: 'Success',
+            message: 'Log Out',
+            variant: 'success'
+        });
+        this.dispatchEvent(toastEvent);
+    }
+
     handleFetchImage(productName) {
-            // Выполните запрос fetch внутри метода
-            fetch(`http://www.glyffix.com/api/Image?word=${product.Name}`)
-              .then(response => response.json())
-              .then(data => {
-                // Handle the response data
+        fetch(`http://www.glyffix.com/api/Image?word=${product.Name}`)
+            .then(response => response.json())
+            .then(data => {
                 if (data && data.image) {
-                  // If the response contains an image URL
-                  product.Image__c = data.image;
+                    product.Image__c = data.image;
                 } else {
-                  // Handle the case when the image URL is not available
                 }
-              })
-              .catch(error => {
-                // Handle errors in the request
+            })
+            .catch(error => {
                 console.error('Error fetching image:', error);
-              });
-        }
+            });
+    }
 
     handleSearchTermChange(event) {
         this.searchTerm = event.target.value;
@@ -50,38 +68,38 @@ export default class ProductSearchAndList extends LightningElement {
 
     openCartModal() {
         this.showCartModal = true;
-      }
+    }
 
-     closeCartModal() {
+    closeCartModal() {
         this.showCartModal = false;
-      }
+    }
 
-      checkout() {
-              const selectedProductIds = this.selectedProducts.map(product => product.Id);
-              const totalPrice = this.totalPrice;
-              const totalProductCount = this.totalProductCount;
-              this.showCheckoutView = true;
-              this.showCartModal = false;
+    checkout() {
+        const selectedProductIds = this.selectedProducts.map(product => product.Id);
+        const totalPrice = this.totalPrice;
+        const totalProductCount = this.totalProductCount;
+        this.showCheckoutView = true;
+        this.showCartModal = false;
 
-              createOrderAndOrderItems({ accountId: this.accountId, totalPrice, totalProductCount })
-                  .then(() => {
-                      const toastEvent = new ShowToastEvent({
-                                  title: 'Success',
-                                  message: 'Order Created!',
-                                  variant: 'success'
-                              });
-                              this.dispatchEvent(toastEvent);
-                  })
-                  .catch(error => {
-                      // Здесь можно добавить обработку ошибки при создании заказа и пунктов заказа
-                  });
-          }
-          goBack() {
-              this.showCheckoutView = false;
-              this.selectedProducts = [];
-              this.totalPrice = 0;
-              this.totalProductCount = 0;
-          }
+        createOrderAndOrderItems({ accountId: this.accountId, totalPrice, totalProductCount })
+            .then(() => {
+                const toastEvent = new ShowToastEvent({
+                    title: 'Success',
+                    message: 'Order Created!',
+                    variant: 'success'
+                });
+                this.dispatchEvent(toastEvent);
+            })
+            .catch(error => {
+            });
+    }
+
+    goBack() {
+        this.showCheckoutView = false;
+        this.selectedProducts = [];
+        this.totalPrice = 0;
+        this.totalProductCount = 0;
+    }
 
     handleSearch() {
         searchProducts({ searchTerm: this.searchTerm })
@@ -90,30 +108,29 @@ export default class ProductSearchAndList extends LightningElement {
                 this.filterProducts();
             })
             .catch(error => {
-                // Обработка ошибки
             });
     }
 
-filterProducts() {
-    let filteredProducts = this.products;
+    filterProducts() {
+        let filteredProducts = this.products;
 
-    if (this.searchTerm) {
-        filteredProducts = filteredProducts.filter(product =>
-            product.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-            (product.Description__c && product.Description__c.toLowerCase().includes(this.searchTerm.toLowerCase()))
-        );
+        if (this.searchTerm) {
+            filteredProducts = filteredProducts.filter(product =>
+                product.Name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+                (product.Description__c && product.Description__c.toLowerCase().includes(this.searchTerm.toLowerCase()))
+            );
+        }
+
+        if (this.selectedType) {
+            filteredProducts = filteredProducts.filter(product => product.Type__c === this.selectedType);
+        }
+
+        if (this.selectedFamily) {
+            filteredProducts = filteredProducts.filter(product => product.Family__c === this.selectedFamily);
+        }
+
+        this.displayProducts = filteredProducts;
     }
-
-    if (this.selectedType) {
-        filteredProducts = filteredProducts.filter(product => product.Type__c === this.selectedType);
-    }
-
-    if (this.selectedFamily) {
-        filteredProducts = filteredProducts.filter(product => product.Family__c === this.selectedFamily);
-    }
-
-    this.displayProducts = filteredProducts;
-}
 
     get isSearchResultsEmpty() {
         return this.searchResults && this.searchResults.length === 0;
@@ -142,7 +159,6 @@ filterProducts() {
 
     submitDetails1() {
         this.isModalOpen1 = false;
-        // Add your code to call Apex method or perform some processing for modal 1
     }
 
     openModal2() {
@@ -156,63 +172,55 @@ filterProducts() {
 
     submitDetails2() {
         this.isModalOpen2 = false;
-        // Add your code to call Apex method or perform some processing for modal 2
     }
-@wire(getProductTypes)
-wiredProductTypes({ error, data }) {
-    if (data) {
-        this.typeOptions = [{ label: 'None', value: '' }, ...data.map((type) => ({ label: type, value: type }))];
-    } else if (error) {
-        console.error(error);
+
+    @wire(getProductTypes)
+    wiredProductTypes({ error, data }) {
+        if (data) {
+            this.typeOptions = [{ label: 'None', value: '' }, ...data.map((type) => ({ label: type, value: type }))];
+        } else if (error) {
+            console.error(error);
+        }
     }
-}
 
-@wire(getProductFamilies)
-wiredProductFamilies({ error, data }) {
-    if (data) {
-        this.familyOptions = [{ label: 'None', value: '' }, ...data.map((family) => ({ label: family, value: family }))];
-    } else if (error) {
-        console.error(error);
+    @wire(getProductFamilies)
+    wiredProductFamilies({ error, data }) {
+        if (data) {
+            this.familyOptions = [{ label: 'None', value: '' }, ...data.map((family) => ({ label: family, value: family }))];
+        } else if (error) {
+            console.error(error);
+        }
     }
-}
 
-handleTypeChange(event) {
-    this.selectedType = event.target.value;
-    this.filterProducts();
-}
+    handleTypeChange(event) {
+        this.selectedType = event.target.value;
+        this.filterProducts();
+    }
 
-handleFamilyChange(event) {
-    this.selectedFamily = event.target.value;
-    this.filterProducts();
-}
+    handleFamilyChange(event) {
+        this.selectedFamily = event.target.value;
+        this.filterProducts();
+    }
+
     handleAddToCart(event) {
-        // Получить выбранный продукт
         const productId = event.target.dataset.id;
         const product = this.products.find(product => product.Name === productId);
 
-        // Получить количество и цену продукта
-        const quantity = 1; // Здесь вы можете использовать свою логику для получения количества
-        const price = product.Price__c; // Здесь вы можете использовать свою логику для получения цены
+        const quantity = 1;
+        const price = product.Price__c;
 
-        // Проверить, существует ли продукт уже в корзине
         const existingProduct = this.selectedProducts.find(item => item.Name === product.Name);
         if (existingProduct) {
-            // Если продукт уже есть в корзине, обновить его количество и подытог
             existingProduct.quantity += quantity;
             existingProduct.subtotal = existingProduct.Price__c * existingProduct.quantity;
         } else {
-            // Если продукта нет в корзине, добавить его
             const newProduct = { ...product, quantity: quantity, subtotal: price };
             this.selectedProducts.push(newProduct);
         }
 
-        // Вычислить общее количество продуктов
         this.totalProductCount = this.selectedProducts.reduce((total, product) => total + product.quantity, 0);
-
-        // Вычислить общую сумму продуктов
         this.totalPrice = this.selectedProducts.reduce((total, product) => total + product.subtotal, 0);
 
-        // Показать Toast сообщение
         const toastEvent = new ShowToastEvent({
             title: 'Success',
             message: 'Product added to cart',
@@ -221,19 +229,18 @@ handleFamilyChange(event) {
         this.dispatchEvent(toastEvent);
     }
 
-get quantity() {
-    const quantityMap = this.selectedProducts.reduce((map, product) => {
-        map[product.Name] = (map[product.Name] || 0) + 1;
-        return map;
-    }, {});
+    get quantity() {
+        const quantityMap = this.selectedProducts.reduce((map, product) => {
+            map[product.Name] = (map[product.Name] || 0) + 1;
+            return map;
+        }, {});
 
-    // Обновить значение totalProductCount
-    this.totalProductCount = Object.values(quantityMap).reduce((total, quantity) => total + quantity, 0);
+        this.totalProductCount = Object.values(quantityMap).reduce((total, quantity) => total + quantity, 0);
 
-    return product => quantityMap[product.Name] || 0;
+        return product => quantityMap[product.Name] || 0;
+    }
+
+    getProductSubtotal(product) {
+        return product.Price__c * this.quantity(product);
+    }
 }
-
-getProductSubtotal(product) {
-    return product.Price__c * this.quantity(product);
-}
-  }
