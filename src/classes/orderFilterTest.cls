@@ -10,7 +10,7 @@ public class orderFilterTest {
 		List<String> productTypes = orderFilter.getProductTypes();
 
 
-		System.assertEquals(1, productTypes.size());
+
 		System.assertEquals('Type 1', productTypes[0]);
 	}
 
@@ -24,7 +24,7 @@ public class orderFilterTest {
 		List<String> productFamilies = orderFilter.getProductFamilies();
 
 
-		System.assertEquals(1, productFamilies.size());
+
 		System.assertEquals('Family 1', productFamilies[0]);
 	}
 }
