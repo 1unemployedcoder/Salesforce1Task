@@ -10,7 +10,7 @@ export default class MyComponent extends LightningElement {
         if (data) {
             this.accounts = data;
         } else if (error) {
-            // Обработка ошибок
+
         }
     }
 

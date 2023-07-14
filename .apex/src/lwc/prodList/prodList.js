@@ -18,9 +18,9 @@ export default class ModalPopupLWC extends LightningElement {
     }
 
     openModal1(event) {
-        const productId = event.target.dataset.id; // Получить идентификатор продукта из атрибута data-id кнопки
-        this.selectedProduct = this.products.find(product => product.Name === productId); // Найти выбранный продукт в списке products
-        this.isModalOpen1 = true; // Открыть модальное окно
+        const productId = event.target.dataset.id;
+        this.selectedProduct = this.products.find(product => product.Name === productId);
+        this.isModalOpen1 = true;
         this.isModalOpen2 = false;
     }
 
@@ -30,7 +30,7 @@ export default class ModalPopupLWC extends LightningElement {
 
     submitDetails1() {
         this.isModalOpen1 = false;
-        // Add your code to call Apex method or perform some processing for modal 1
+
     }
 
     openModal2() {
@@ -44,6 +44,6 @@ export default class ModalPopupLWC extends LightningElement {
 
     submitDetails2() {
         this.isModalOpen2 = false;
-        // Add your code to call Apex method or perform some processing for modal 2
+
     }
 }

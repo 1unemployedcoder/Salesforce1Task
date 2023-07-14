@@ -17,7 +17,7 @@ export default class CreateProductModal extends LightningElement {
         if (data) {
             this.isManager = data;
         } else if (error) {
-            // Обработка ошибки при вызове Apex-метода
+
         }
     }
 
@@ -54,8 +54,7 @@ export default class CreateProductModal extends LightningElement {
     }
 
     createProduct() {
-        // Логика создания нового продукта
-        // Используйте createRecord для создания записи продукта
+
         const fields = {
             Name: this.productName,
             Description__c: this.productDescription,
@@ -63,17 +62,17 @@ export default class CreateProductModal extends LightningElement {
             Family__c: this.productFamily,
             Image__c: this.productImage,
             Price__c: this.productPrice,
-            // Другие поля продукта
+
         };
 
         const recordInput = { apiName: 'Product__c', fields };
         createRecord(recordInput)
             .then(result => {
-                // Обработка успешного создания продукта
+
                 this.closeModal();
             })
             .catch(error => {
-                // Обработка ошибки при создании продукта
+
             });
     }
 }

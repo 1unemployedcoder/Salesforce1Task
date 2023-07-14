@@ -12,6 +12,6 @@ export default class Cart extends LightningElement {
   }
 
   checkout() {
-    // Implement your checkout logic here
+
   }
 }

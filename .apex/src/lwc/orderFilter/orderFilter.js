@@ -28,11 +28,11 @@ export default class FilterComponent extends LightningElement {
 
     handleTypeChange(event) {
         this.selectedType = event.target.value;
-        // Дополнительная логика при изменении значения Type
+
     }
 
     handleFamilyChange(event) {
         this.selectedFamily = event.target.value;
-        // Дополнительная логика при изменении значения Family
+
     }
 }

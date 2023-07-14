@@ -12,14 +12,14 @@
                     <h2 id="modal-heading-01" class="slds-modal__title">Create Product</h2>
                 </header>
                 <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
-                    <!-- Форма для создания продукта -->
+
                     <lightning-input label="Name" value={productName} onchange={handleNameChange} required></lightning-input>
                     <lightning-input label="Description" value={productDescription} onchange={handleProductDescription} required></lightning-input>
                     <lightning-input label="Type" value={productType} onchange={handleProductType} required></lightning-input>
                     <lightning-input label="Family" value={productFamily} onchange={handleProductFamily} required></lightning-input>
                     <lightning-input label="Image URL" value={productImage} onchange={handleProductImage} required></lightning-input>
                     <lightning-input label="Price" value={productPrice} onchange={handleProductPrice} required></lightning-input>
-                    <!-- Другие поля для создания продукта -->
+
                 </div>
                 <footer class="slds-modal__footer">
                     <lightning-button label="Cancel" onclick={closeModal}></lightning-button>

@@ -15,7 +15,7 @@ export default class ProductSearch extends LightningElement {
                 this.searchResults = result;
             })
             .catch(error => {
-                // Обработка ошибки
+
             });
     }
 
