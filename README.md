@@ -30,7 +30,4 @@ Main APEX classes in this project:
 
 ## My comment about this task
 I have never completed any project before, my maximum was to write a telegram bot that follows any narrow instructions. This is my first project that I have taken so seriously. I'll be honest - I tried very hard. Also, this is my first coding experience. I consider myself a fast learner and motivated as I was able to complete this project in 7 days with very little knowledge and using the gpt prompt. I am not ashamed of this and I think that I am a good candidate for the became trainee in your company!
-```
-$ cd ../lorem
-$ npm install
-$ npm start
+
