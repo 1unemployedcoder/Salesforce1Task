@@ -4,8 +4,9 @@ This project is simple one-page application to allow the user to create an order
 ## Technologies
 Project is created with:
 * Salesforce Dev
-* Apex, JavaScript, HTML with SLDS
+* Apex(Java liked lang), JavaScript, HTML with SLDS
 * LWC components
+* SQL DataBase
 
 ## Screenshots app
 
