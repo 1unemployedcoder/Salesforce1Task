@@ -6,10 +6,42 @@ Project is created with:
 * Salesforce Dev
 * Apex, JavaScript, HTML with SLDS
 * LWC components
-	
-## Short review
 
-Hello Salesforce Team. I wanna to became trainee in your company and so I tried to do this task. It's been hard. Let's view.
+## Screenshots app
+
+### Log In with Name and ID Account
+
+![Log In with Name and ID Account](https://github.com/1unemployedcoder/Salesforce1Task/blob/master/screens/log%20in.jpg)
+
+### Interface of creation order
+
+![Interface of creation order](https://github.com/1unemployedcoder/Salesforce1Task/blob/master/screens/UI%20Page.jpg)
+
+Wee see account name and id, list of products, search by name and description, button of creation another product, filter by type and family product, cart, and button of Log Out.
+
+### Details product button
+
+![Details product button](https://github.com/1unemployedcoder/Salesforce1Task/blob/master/screens/Details%20product.jpg)
+
+Every product have some characteristics.
+
+### Create product button
+
+![Create product button](https://github.com/1unemployedcoder/Salesforce1Task/blob/master/screens/CreateProduct%20Page.jpg)
+
+### Cart button
+
+![Cart button](https://github.com/1unemployedcoder/Salesforce1Task/blob/master/screens/Cart%20page.jpg)
+
+In cart we will see count added products, subtotal and total price.
+
+### Check out page
+
+![Check out page](https://github.com/1unemployedcoder/Salesforce1Task/blob/master/screens/CheckOut%20Page.jpg)
+
+After click on checkout in cart we will see this page.
+
+## Short review
 
 Main LWC components in this project:
 * productOne - biggest LWC with so much functions, templates and algorithms.
@@ -25,9 +57,12 @@ Main APEX classes in this project:
 * productSearchController - search for name and description
 * test (haha) - apex class which send request about AccountID__c, Name
 * orderController - biggest class which works with orderOne together and counts, queries, returns data.
-* orderControllerTest - first and last UNIT test class which testing orderController (70-80% of all code imo)
+
+Also Im added test classes in which come UNIT TESTS:
+* orderControllerTest
+* orderFilterTest
+* searchTest
 
 
-## My comment about this task
-I have never completed any project before, my maximum was to write a telegram bot that follows any narrow instructions. This is my first project that I have taken so seriously. I'll be honest - I tried very hard. Also, this is my first coding experience. I consider myself a fast learner and motivated as I was able to complete this project in 7 days with very little knowledge and using the gpt prompt. I am not ashamed of this and I think that I am a good candidate for the became trainee in your company!
+
 
