@@ -1,5 +1,5 @@
 ## General info
-This project is simple one-page application to allow the user to create an order.
+This project is simple one-page application to allow the user to create an order.(done in 7 days)
 	
 ## Technologies
 Project is created with:
